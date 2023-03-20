@@ -1,19 +1,14 @@
-# Yes/no checker
-def yes_no(question):
+def choice_checker(question, list, error):
     while True:
-
         response = input(question)
-        if response in valid:
-            return
+        if response not in list:
+            print(error)
         else:
-            print("Please enter yes/no")
+            return response
 
+yes_no_list = ["yes", "y", "no", "n"]
+show_instructions = choice_checker("Have you played the game before? ", yes_no_list, "Please enter yes/no")
 
-valid = ["yes", "y", "no", "n"]
-show_instructions = yes_no("Have you played this game before? ")
+if show_instructions == "no" or show_instructions == "n":
+    print("Shows Instructions")
 
-instructions = "Welcome to the math quiz, you can select levels 1 - 3 in which level 1 where boh numbers are under 20" \
-               "addition or subtraction. Level 2 has numbers under 150 and allows addition and subtraction. Level 3 is " \
-               "whole number multiplication/division for numbers below 13"
-if show_instructions == valid[2]:
-    print(instructions)
