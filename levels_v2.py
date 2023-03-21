@@ -1,4 +1,4 @@
-import random
+
 def choice_checker(question, list, error):
     while True:
         response = input(question)
