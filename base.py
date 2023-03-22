@@ -1,4 +1,8 @@
 import random
+from operator import add, sub, mul
+
+
+
 def choice_checker(question, list, error):
     while True:
         response = input(question)
@@ -22,9 +26,7 @@ def user_number_questions(question, error, required_numbers=None):
         except ValueError:
             print(error)
 
-def random_numbers(range_1, range_2, first_number, second_number):
-    first_number = random.randint(range_1,range_2)
-    second_number = random.randint(range_1, range_2)
+
 
 yes_no_list = ["yes", "y", "no", "n"]
 show_instructions = choice_checker("Have you played the game before? ", yes_no_list, "Please enter yes/no")
@@ -43,17 +45,52 @@ amount_of_questions = user_number_questions("Number of questions: ", "Please ent
 
 amount_of_questions_answered = 0
 
-while amount_of_questions_answered <= amount_of_questions:
-    first_number = random.randint()
+range_I = 0
+range_II = 0
+
+level_2_valid_operations = ["+", "-"]
+level_3_valid_operations = ["/", "*"]
+
+while amount_of_questions_answered < amount_of_questions:
+    range_I = 0
+
+    first_number, second_number = random.randint(range_I, range_II), random.randint(range_I, range_II)
 
     if type_of_level == "1":
-
+        range_II = 20
+        operation = "+"
+        answer = add(first_number, second_number)
 
     elif type_of_level == "2":
+        range_II = 150
+        operation = random.choice(level_2_valid_operations)
+
+        if operation == "+":
+            answer = add(first_number, second_number)
+        else:
+            answer = sub(first_number, second_number)
+
+    elif type_of_level == "3":
+        range_II = 13
+        operation = random.choice(level_3_valid_operations)
+
+        if operation == "*":
+            answer = mul(first_number, second_number)
+        else:
+            if first_number % second_number == 0:
+                answer = first_number // second_number
 
 
 
+    guess = user_number_questions(f"What is {first_number} {operation} {second_number}? ",
+                                  "Please enter a whole integer(Can be negative)")
 
 
+    if int(guess) == answer:
+        print("Your correct!")
+    else:
+        print("You lost")
+
+    amount_of_questions_answered += 1
 
 
