@@ -11,7 +11,7 @@ def choice_checker(question, list, error):
         else:
             return response
 
-def user_number_questions(question, error, required_numbers=None):
+def num_check(question, error, required_numbers=None):
     while True:
         try:
             response = int(input(question))
@@ -40,22 +40,23 @@ type_of_level = choice_checker("Choose level: ", valid_level_list,
                                "Please enter a whole integer between 1 and 3")
 print(f"You chose level {type_of_level}")
 
-amount_of_questions = user_number_questions("Number of questions: ", "Please enter an integer greater than 0", 1)
+amount_of_questions = num_check("Number of questions: ", "Please enter an integer greater than 0", 1)
 
 
 amount_of_questions_answered = 0
 
 range_I = 0
-range_II = 0
+range_II = 13
 
 level_2_valid_operations = ["+", "-"]
 level_3_valid_operations = ["/", "*"]
 
+
+# Game loop
 while amount_of_questions_answered < amount_of_questions:
-    range_I = 0
-
+    # Generate numbers
     first_number, second_number = random.randint(range_I, range_II), random.randint(range_I, range_II)
-
+    # Checks which level and sets 2nd number limit and randomly chooses operation
     if type_of_level == "1":
         range_II = 20
         operation = "+"
@@ -65,6 +66,7 @@ while amount_of_questions_answered < amount_of_questions:
         range_II = 150
         operation = random.choice(level_2_valid_operations)
 
+        # Checks which operation is chosen and gets the answer
         if operation == "+":
             answer = add(first_number, second_number)
         else:
@@ -74,23 +76,30 @@ while amount_of_questions_answered < amount_of_questions:
         range_II = 13
         operation = random.choice(level_3_valid_operations)
 
-        if operation == "*":
-            answer = mul(first_number, second_number)
+        # Gets answer for divide/multiply depending on chosen operation
+        if operation == "/" and first_number % second_number != 0:
+            answer = first_number // second_number
+
         else:
-            if first_number % second_number == 0:
-                answer = first_number // second_number
+            if operation == "*":
+                answer = first_number * second_number
 
 
-
-    guess = user_number_questions(f"What is {first_number} {operation} {second_number}? ",
+    # Gets user guess
+    user_guess = num_check(f"What is {first_number} {operation} {second_number}? ",
                                   "Please enter a whole integer(Can be negative)")
+    print()
 
-
-    if int(guess) == answer:
+    # Checks user guess and displays whether right or wrong
+    if user_guess == answer:
         print("Your correct!")
     else:
-        print("You lost")
-
+        print("Thats incorrect")
+    # Increases number of questions answered
     amount_of_questions_answered += 1
+    print()
+    # Tells user how many questions are left
+    print(f"Questions left: {amount_of_questions - amount_of_questions_answered}")
+    print()
 
 
