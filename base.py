@@ -45,8 +45,8 @@ amount_of_questions = num_check("Number of questions: ", "Please enter an intege
 
 amount_of_questions_answered = 0
 
-range_I = 0
-range_II = 13
+min_guess = 0
+max_guess = 13
 
 level_2_valid_operations = ["+", "-"]
 level_3_valid_operations = ["/", "*"]
@@ -55,15 +55,15 @@ level_3_valid_operations = ["/", "*"]
 # Game loop
 while amount_of_questions_answered < amount_of_questions:
     # Generate numbers
-    first_number, second_number = random.randint(range_I, range_II), random.randint(range_I, range_II)
+    first_number, second_number = random.randint(min_guess, max_guess), random.randint(min_guess, max_guess)
     # Checks which level and sets 2nd number limit and randomly chooses operation
     if type_of_level == "1":
-        range_II = 20
+        max_guess = 20
         operation = "+"
         answer = add(first_number, second_number)
 
     elif type_of_level == "2":
-        range_II = 150
+        max_guess = 150
         operation = random.choice(level_2_valid_operations)
 
         # Checks which operation is chosen and gets the answer
@@ -73,18 +73,15 @@ while amount_of_questions_answered < amount_of_questions:
             answer = sub(first_number, second_number)
 
     elif type_of_level == "3":
-        range_II = 13
+        max_guess = 13
         operation = random.choice(level_3_valid_operations)
 
         # Gets answer for divide/multiply depending on chosen operation
         if operation == "/" and first_number % second_number != 0:
             answer = first_number // second_number
 
-        else:
-            if operation == "*":
-                answer = first_number * second_number
-
-
+        elif operation == "*":
+            answer = first_number * second_number
     # Gets user guess
     user_guess = num_check(f"What is {first_number} {operation} {second_number}? ",
                                   "Please enter a whole integer(Can be negative)")
