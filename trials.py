@@ -1,1 +1,4 @@
-print(eval("five plus four is""5 + 4"))
+num_1 = 4
+num_2 = 8
+
+print(eval("num_1 + num_2"))
