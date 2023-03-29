@@ -1,6 +1,6 @@
 def choice_checker(question, list, error):
     while True:
-        response = input(question)
+        response = input(question).lower()
         if response not in list:
             print(error)
         else:
