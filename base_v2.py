@@ -55,7 +55,7 @@ def statement_generator(statement, decoration):
 
 # This function is used to convert decimal percentages to a whole number instead of .00
 def convert_to_integer(input_number):
-    # checks if a float (input_number) is an integer
+    # checks if the decimal number is an integer
     if float(input_number).is_integer():
         # in that case return it as a whole number
         return int(input_number)
@@ -203,6 +203,5 @@ print(f"You got {convert_to_integer(percentage_right)}% right and "
 
 print()
 
-# Thanks the user for playing using a quit statement instead of print statement as it displays the text in red which I
-# liked
-quit("Thanks for playing")
+# Thanks the user for playing the game
+print("Thanks for playing")
