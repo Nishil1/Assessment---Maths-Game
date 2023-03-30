@@ -95,7 +95,7 @@ amount_of_questions = user_number_questions("Number of questions: ", "Please ent
 # Counter for number of questions the user has answered
 amount_of_questions_answered = 0
 
-# The minimum number used for all operations
+# The minimum number used for all operations aside from division
 min_num = 0
 
 # List that contains game history(Correct and Wrong)
@@ -138,7 +138,7 @@ while amount_of_questions_answered < amount_of_questions:
         answer = eval("first_number * second_number")
     elif operation == "/" and first_number % second_number == 0:
         # Sets the minimum number to 0 to avoid ZeroDivisionError
-        min_num = 0
+        min_num = 1
         answer = eval("first_number // second_number")
     elif operation == "-":
         answer = eval("first_number - second_number")
@@ -146,7 +146,7 @@ while amount_of_questions_answered < amount_of_questions:
         answer = eval("first_number + second_number")
         # To avoid warning of answer may be undefined
     else:
-        answer = ""
+        continue
 
     # Gets the user_guess and uses user_number_questions to validate the user input
     user_guess = user_number_questions(f"What is {first_number} {operation} {second_number}? ",
