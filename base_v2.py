@@ -2,25 +2,23 @@ import random
 
 
 # This function is used for yes/no responses and choice of level responses
-def choice_checker(question, var_list, error):
+def choice_checker(question, list, error):
     while True:
-        # Takes in the question
-        response = input(question).lower()
+        # asks question
+        var_question = input(question).lower()
 
-        # checks if user response is in the given list
-        if response not in var_list:
-            # if it is not, an error message is printed
-            print(error)
-        else:
-            # if its a valid response, return it
-            return response
-
+        # checks for 2 possible answers
+        for items in list:
+            if var_question == items or var_question == items[0]:
+                return items
+        # if input is invalid
+        print(error)
 
 # This function is used to obtain how many questions to user wants answer and also validates user guess
-def user_number_questions(question, error, minimum_number=None):
+def number_checker(question, error, minimum_number=None):
     while True:
         try:
-            # asks the questions
+            # asks the question
             response = int(input(question))
 
             # required_numbers will be none for user guesses and user can guess -tive number so there isn't any
@@ -32,7 +30,7 @@ def user_number_questions(question, error, minimum_number=None):
                     # if response is not >= minimum_number, gives an error message
                     print(error)
                     continue
-            # returns response if minimum is none or minimum_number requirement are met
+            # returns response if minimum is none
             return response
         # if entered value is a float or string/ not an integer, gives an error message
         except ValueError:
@@ -78,19 +76,23 @@ show_instructions = choice_checker("Have you played the game before? ", yes_no_l
 # Checks if user as not played the game
 if show_instructions == "no" or show_instructions == "n":
     # Displays instructions
-    print("Shows Instructions")
+    print("Welcome to the game, you can choose what level you want to play(Easy, medium and hard)")
+    print("Easy: Addition sums upto 20")
+    print("Medium: Addition and subtraction upto 150(can include negative answers)")
+    print("Hard: Multiplication and division upto 13 times table")
 
 # List for valid levels that can be chosen by the user
-valid_level_list = ["1", "2", "3"]
+valid_level_list = ["easy", "medium", "hard"]
 
 # Asks the user for a level, uses choice checker function to ensure inputs are valid.
-type_of_level = choice_checker("Choose level: ", valid_level_list,
-                               "Please enter a whole integer between 1 and 3")
+which_mode = choice_checker("Choose level: ", valid_level_list, "Please choose easy, medium or hard")
+print()
+
 # Displays the level the user chose
-print(f"You chose level {type_of_level}")
+print(statement_generator(f"You chose {which_mode} mode", "#"))
 
 # Asks the user for the number of questions
-amount_of_questions = user_number_questions("Number of questions: ", "Please enter an integer greater than 0", 1)
+amount_of_questions = number_checker("Number of questions: ", "Please enter an integer greater than 0", 1)
 
 # Counter for number of questions the user has answered
 amount_of_questions_answered = 0
@@ -112,15 +114,15 @@ questions_right = 0
 while amount_of_questions_answered < amount_of_questions:
 
     # Checks what level the user wants to play, sets the max number and decides the operation
-    if type_of_level == "1":
+    if which_mode == "easy":
         max_num = 20
         operation = "+"
 
-    elif type_of_level == "2":
+    elif which_mode == "medium":
         max_num = 150
         operation = random.choice(level_2_valid_operations)
 
-    elif type_of_level == "3":
+    elif which_mode == "hard":
 
         # decides max number for level 3
         max_num = 13
@@ -149,9 +151,13 @@ while amount_of_questions_answered < amount_of_questions:
         continue
 
     # Gets the user_guess and uses user_number_questions to validate the user input
-    user_guess = user_number_questions(f"What is {first_number} {operation} {second_number}? ",
+    user_guess = number_checker(f"What is {first_number} {operation} {second_number}? ",
                                        "Please enter a whole integer(Can be negative)")
     print()
+
+    # Check for xxx user exit code
+    if user_guess == "xxx":
+        break
 
     # Checks if user is correct
     if user_guess == answer:
