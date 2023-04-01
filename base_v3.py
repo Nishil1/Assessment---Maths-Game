@@ -64,6 +64,7 @@ def convert_to_integer(input_number):
     if float(input_number).is_integer():
         # in that case return it as a whole number
         return int(input_number)
+
     else:
         # if the float number is not an integer, return it to 2 decimal places
         return round(input_number, 2)
@@ -92,7 +93,7 @@ if show_instructions == "no" or show_instructions == "n":
 valid_level_list = ["easy", "medium", "hard"]
 
 # Asks the user for a level, uses choice checker function to ensure inputs are valid.
-which_mode = choice_checker("Choose level: ", valid_level_list, "Please choose easy, medium or hard")
+which_mode = choice_checker("Choose mode: ", valid_level_list, "Please choose easy, medium or hard")
 print()
 
 # Displays the level the user chose
