@@ -197,7 +197,7 @@ while amount_of_questions_answered < amount_of_questions:
     print()
 
 # Title for game history using statement_generator function to make code look visually appealing
-statement_generator("Game history", "-")
+statement_generator("Game History", "-")
 
 # Displays game history using a for loop
 for item in game_history:
