@@ -2,17 +2,18 @@ import random
 
 
 # This function is used for yes/no responses and choice of level responses
-def choice_checker(question, list, error):
+def choice_checker(question, var_list, error):
     while True:
         # asks question
         var_question = input(question).lower()
 
         # checks for 2 possible answers
-        for items in list:
+        for items in var_list:
             if var_question == items or var_question == items[0]:
                 return items
         # if input is invalid
         print(error)
+
 
 # This function is used to obtain how many questions to user wants answer and also validates user guess
 def number_checker(question, error, minimum_number=None):
@@ -41,7 +42,6 @@ def number_checker(question, error, minimum_number=None):
         # if entered value is a float or string/ not an integer, gives an error message
         except ValueError:
             print(error)
-
 
 
 # Meant for aesthetics, this function takes in 2 parameters, the statement and a custom decoration.
@@ -85,12 +85,20 @@ show_instructions = choice_checker("Have you played the game before? ", yes_no_l
 if show_instructions == "no" or show_instructions == "n":
     # Displays instructions
     print("Welcome to the game, you can choose what level you want to play(Easy, medium and hard)")
-    print("Easy: Addition sums upto 20")
-    print("Medium: Addition and subtraction upto 150(can include negative answers)")
-    print("Hard: Multiplication and division upto 13 times table")
+    print("Easy: Addition sums up to 20")
+    print("Medium: Addition and subtraction up to 150(can include negative answers)")
+    print("Hard: Multiplication and division up to 13 times table")
+
 
 # List for valid levels that can be chosen by the user
 valid_level_list = ["easy", "medium", "hard"]
+
+# List that contains game history(Correct and Wrong)
+game_history = []
+
+# Operation lists for level 2 and 3.
+level_2_valid_operations = ["+", "-"]
+level_3_valid_operations = ["/", "*"]
 
 # Asks the user for a level, uses choice checker function to ensure inputs are valid.
 which_mode = choice_checker("Choose mode: ", valid_level_list, "Please choose easy, medium or hard")
@@ -108,13 +116,6 @@ amount_of_questions_answered = 0
 # The minimum number used for all operations aside from division
 min_num = 0
 
-# List that contains game history(Correct and Wrong)
-game_history = []
-
-# Operation lists for level 2 and 3.
-level_2_valid_operations = ["+", "-"]
-level_3_valid_operations = ["/", "*"]
-
 # Counter for the number of questions right
 questions_right = 0
 
@@ -131,8 +132,6 @@ while amount_of_questions_answered < amount_of_questions:
         operation = random.choice(level_2_valid_operations)
 
     elif which_mode == "hard":
-
-        # decides max number for level 3
         max_num = 13
         operation = random.choice(level_3_valid_operations)
         # used to fix warning that max_num could be undefined
@@ -147,20 +146,20 @@ while amount_of_questions_answered < amount_of_questions:
     if operation == "*":
         answer = eval("first_number * second_number")
     elif operation == "/" and first_number % second_number == 0:
-        # Sets the minimum number to 0 to avoid ZeroDivisionError
+        # Sets the minimum number to 1 to avoid ZeroDivisionError
         min_num = 1
         answer = eval("first_number // second_number")
     elif operation == "-":
         answer = eval("first_number - second_number")
     elif operation == "+":
         answer = eval("first_number + second_number")
-        # To avoid warning of answer may be undefined
+        # if division generated is not a whole number result, regenerate the numbers
     else:
         continue
 
     # Gets the user_guess and uses user_number_questions to validate the user input
     user_guess = number_checker(f"What is {first_number} {operation} {second_number}?(Enter 'xxx' to quit') ",
-                                       "Please enter a whole integer(Can be negative)")
+                                "Please enter a whole integer(Can be negative)")
     print()
 
     # Check for xxx user exit code
@@ -186,6 +185,7 @@ while amount_of_questions_answered < amount_of_questions:
 
     # Appends feedback to the game_history list which will be displayed after the game finishes
     game_history.append(feedback)
+
     # Increases the amount of questions answered by 1
     amount_of_questions_answered += 1
     print()
@@ -199,7 +199,7 @@ while amount_of_questions_answered < amount_of_questions:
 # Title for game history using statement_generator function to make code look visually appealing
 statement_generator("Game history", "-")
 
-# DDisplays game history using a for loop
+# Displays game history using a for loop
 for item in game_history:
     print(item)
 
