@@ -222,5 +222,3 @@ def main_routine():
     print("Thanks for playing")
 
 
-
-main_routine()
