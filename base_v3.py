@@ -195,26 +195,31 @@ while amount_of_questions_answered < amount_of_questions:
     # Increases the amount of questions answered by 1
     amount_of_questions_answered += 1
 
-# Title for game history using statement_generator function to make code look visually appealing
-statement_generator("Game History", "-", 4, 0)
+if amount_of_questions_answered > 0:
 
-# Displays game history using a for loop
-for item in game_history:
-    print(item)
+    # Title for game history using statement_generator function to make code look visually appealing
+    statement_generator("Game History", "-", 4, 0)
 
-print()
+    # Displays game history using a for loop
+    for item in game_history:
+        print(item)
 
-# Calculates the percentage the user got right
-percentage_right = questions_right / amount_of_questions_answered * 100
+    print()
+
+    # Calculates the percentage the user got right
+    percentage_right = questions_right / amount_of_questions_answered * 100
 
 
-# Displays game summary title using statement_generator function to make code look visually appealing
-statement_generator("Game Summary", "*", 4, 0)
+    # Displays game summary title using statement_generator function to make code look visually appealing
+    statement_generator("Game Summary", "*", 4, 0)
 
-# Displays percentage of right and wrong, calculates percentage wrong by taking away percentage right by 100
-print(f"You got {convert_to_integer(percentage_right)}% right and "
-      f"{convert_to_integer(100 - percentage_right)}% wrong.")
+    # Displays percentage of right and wrong, calculates percentage wrong by taking away percentage right by 100
+    print(f"You got {convert_to_integer(percentage_right)}% right and "
+          f"{convert_to_integer(100 - percentage_right)}% wrong.")
 
+else:
+    print()
+    print("There is no history")
 print()
 
 # Thanks the user for playing the game
