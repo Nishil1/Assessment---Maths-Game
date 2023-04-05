@@ -16,13 +16,13 @@ def choice_checker(question, var_list, error):
 
 
 # This function is used to obtain how many questions to user wants answer and also validates user guess
-def number_checker(question, error, minimum_number=None):
+def number_checker(question, valid_xxx_usage, error, minimum_number=None):
     while True:
         # asks the question
         response = input(question)
 
         # Checks for emergency exit code
-        if response == "xxx":
+        if response == "xxx" and response == valid_xxx_usage:
             return response
 
         try:
@@ -111,7 +111,7 @@ which_mode = choice_checker("Choose Mode(Easy, Medium and Hard): ", valid_level_
 statement_generator(f"You chose {which_mode} mode", "#", 4, 0)
 
 # Asks the user for the number of questions
-amount_of_questions = number_checker("Number of questions: ", "Please enter an integer greater than 0", 1)
+amount_of_questions = number_checker("Number of questions: ", "", "Please enter an integer greater than 0", 1)
 
 # Counter for number of questions the user has answered
 amount_of_questions_answered = 0
@@ -165,7 +165,7 @@ while amount_of_questions_answered < amount_of_questions:
     print(statement_generator(f"Question {amount_of_questions_answered + 1}", "#", 4, 0))
 
     # Gets the user_guess and uses user_number_questions to validate the user input
-    user_guess = number_checker(f"What is {first_number} {operation} {second_number}?(Enter 'xxx' to quit') ",
+    user_guess = number_checker(f"What is {first_number} {operation} {second_number}?(Enter 'xxx' to quit') ","xxx",
                                 "Please enter a whole integer(Can be negative)")
 
     # Check for xxx user exit code
