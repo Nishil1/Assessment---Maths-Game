@@ -44,17 +44,19 @@ def number_checker(question, error, minimum_number=None):
             print(error)
 
 
-# Meant for aesthetics, this function takes in 2 parameters, the statement and a custom decoration.
-# This makes the program look better.
-def statement_generator(statement, decoration):
-    sides = decoration * 3
+# Meant for aesthetics, this function takes in 4 parameters which I can control what decoration and how much for
+# messages I need. Makes things look better.
+def statement_generator(statement, decoration, num_sides, num_tb=None):
+    if num_tb is None:
+        num_tb = len(statement) * len(decoration)
+
+    sides = decoration * num_sides
     statement = f"{sides} {statement} {sides}"
-    top_bottom = decoration * len(statement)
+    top_bottom = decoration * num_tb
 
     print(top_bottom)
     print(statement)
     print(top_bottom)
-    print()
     return ""
 
 
@@ -73,22 +75,23 @@ def convert_to_integer(input_number):
 # Main routine stats here
 
 # Welcome statement
-statement_generator("Welcome to the legendary maths game", "*")
+statement_generator("Welcome to the legendary maths game", "*", 0)
 
 # List for yes_no responses
-yes_no_list = ["yes", "y", "no", "n"]
+yes_no_list = ["yes", "no"]
 
 # Asks user if they have played the game before
 show_instructions = choice_checker("Have you played the game before? ", yes_no_list, "Please enter yes/no")
 
 # Checks if user as not played the game
-if show_instructions == "no" or show_instructions == "n":
+if show_instructions == "no":
     # Displays instructions
+    print()
     print("Welcome to the game, you can choose what level you want to play(Easy, medium and hard)")
     print("Easy: Addition sums up to 20")
     print("Medium: Addition and subtraction up to 150(can include negative answers)")
     print("Hard: Multiplication and division up to 13 times table")
-
+    print()
 
 # List for valid levels that can be chosen by the user
 valid_level_list = ["easy", "medium", "hard"]
@@ -101,11 +104,11 @@ level_2_valid_operations = ["+", "-"]
 level_3_valid_operations = ["/", "*"]
 
 # Asks the user for a level, uses choice checker function to ensure inputs are valid.
-which_mode = choice_checker("Choose mode: ", valid_level_list, "Please choose easy, medium or hard")
-print()
+which_mode = choice_checker("Choose Mode(Easy, Medium and Hard): ", valid_level_list,
+                            "Please choose easy, medium or hard")
 
 # Displays the level the user chose
-print(statement_generator(f"You chose {which_mode} mode", "#"))
+statement_generator(f"You chose {which_mode} mode", "#", 4, 0)
 
 # Asks the user for the number of questions
 amount_of_questions = number_checker("Number of questions: ", "Please enter an integer greater than 0", 1)
@@ -113,8 +116,8 @@ amount_of_questions = number_checker("Number of questions: ", "Please enter an i
 # Counter for number of questions the user has answered
 amount_of_questions_answered = 0
 
-# The minimum number used for all operations aside from division
-min_num = 0
+# The minimum number used for all operations
+min_num = 1
 
 # Counter for the number of questions right
 questions_right = 0
@@ -145,10 +148,11 @@ while amount_of_questions_answered < amount_of_questions:
     # Gets the answer depending on the operation, uses eval to evaluate the answer.
     if operation == "*":
         answer = eval("first_number * second_number")
-    elif operation == "/" and first_number % second_number == 0:
-        # Sets the minimum number to 1 to avoid ZeroDivisionError
-        min_num = 1
-        answer = eval("first_number // second_number")
+    elif operation == "/":
+        result = first_number * second_number
+        answer = first_number
+        first_number = result
+
     elif operation == "-":
         answer = eval("first_number - second_number")
     elif operation == "+":
@@ -157,10 +161,12 @@ while amount_of_questions_answered < amount_of_questions:
     else:
         continue
 
+    # Displays what question the user is on
+    print(statement_generator(f"Question {amount_of_questions_answered + 1}", "#", 4, 0))
+
     # Gets the user_guess and uses user_number_questions to validate the user input
     user_guess = number_checker(f"What is {first_number} {operation} {second_number}?(Enter 'xxx' to quit') ",
                                 "Please enter a whole integer(Can be negative)")
-    print()
 
     # Check for xxx user exit code
     if user_guess == "xxx":
@@ -188,16 +194,9 @@ while amount_of_questions_answered < amount_of_questions:
 
     # Increases the amount of questions answered by 1
     amount_of_questions_answered += 1
-    print()
-
-    # Checks if the number of questions left is > than or equal to 1, which in that case display # of questions left.
-    # If not, then continue
-    if amount_of_questions - amount_of_questions_answered >= 1:
-        print(f"Questions left: {amount_of_questions - amount_of_questions_answered}")
-    print()
 
 # Title for game history using statement_generator function to make code look visually appealing
-statement_generator("Game History", "-")
+statement_generator("Game History", "-", 4, 0)
 
 # Displays game history using a for loop
 for item in game_history:
@@ -206,10 +205,11 @@ for item in game_history:
 print()
 
 # Calculates the percentage the user got right
-percentage_right = questions_right / amount_of_questions * 100
+percentage_right = questions_right / amount_of_questions_answered * 100
+
 
 # Displays game summary title using statement_generator function to make code look visually appealing
-statement_generator("Game Summary", "*")
+statement_generator("Game Summary", "*", 4, 0)
 
 # Displays percentage of right and wrong, calculates percentage wrong by taking away percentage right by 100
 print(f"You got {convert_to_integer(percentage_right)}% right and "
