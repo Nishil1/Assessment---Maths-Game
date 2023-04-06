@@ -145,9 +145,9 @@ while amount_of_questions_answered < amount_of_questions:
     # Generates two random numbers using min_num and max_num for operations.
     first_number, second_number = random.randint(min_num, max_num), random.randint(min_num, max_num)
 
-    # Gets the answer depending on the operation, uses eval to obtain the answer.
+    # Gets the answer depending on the operation
     if operation == "x":
-        answer = eval("first_number * second_number")
+        answer = first_number * second_number
 
     elif operation == "÷":
         # uses multiplication to get division questions upto 13, question will be result divided by second number
@@ -157,9 +157,9 @@ while amount_of_questions_answered < amount_of_questions:
         first_number = result
 
     elif operation == "-":
-        answer = eval("first_number - second_number")
+        answer = first_number - second_number
     elif operation == "+":
-        answer = eval("first_number + second_number")
+        answer = first_number + second_number
         # if division generated is not a whole number result, regenerate the numbers
     else:
         continue
