@@ -150,7 +150,7 @@ while amount_of_questions_answered < amount_of_questions:
         answer = first_number * second_number
 
     elif operation == "÷":
-        # uses multiplication to get division questions upto 13, question will be result divided by second number
+        # uses multiplication to get division questions up to 13, question will be result divided by second number
         # which also means the first number will be the answer
         result = first_number * second_number
         answer = first_number
@@ -168,7 +168,7 @@ while amount_of_questions_answered < amount_of_questions:
     print(statement_generator(f"Question {amount_of_questions_answered + 1}", "#", 4, 0))
 
     # Gets the user_guess and uses user_number_questions to validate the user input
-    user_guess = number_checker(f"What is {first_number} {operation} {second_number}?(Enter 'xxx' to quit') ","xxx",
+    user_guess = number_checker(f"What is {first_number} {operation} {second_number}?(Enter 'xxx' to quit') ", "xxx",
                                 "Please enter a whole integer(Can be negative)")
 
     # Check for xxx user exit code
