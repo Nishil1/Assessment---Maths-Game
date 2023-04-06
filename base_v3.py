@@ -19,7 +19,7 @@ def choice_checker(question, var_list, error):
 def number_checker(question, valid_xxx_usage, error, minimum_number=None):
     while True:
         # asks the question
-        response = input(question)
+        response = input(question).lower()
 
         # Checks for emergency exit code
         if response == "xxx" and response == valid_xxx_usage:
@@ -101,7 +101,7 @@ game_history = []
 
 # Operation lists for level 2 and 3.
 level_2_valid_operations = ["+", "-"]
-level_3_valid_operations = ["/", "*"]
+level_3_valid_operations = ["÷", "x"]
 
 # Asks the user for a level, uses choice checker function to ensure inputs are valid.
 which_mode = choice_checker("Choose Mode(Easy, Medium and Hard): ", valid_level_list,
@@ -145,10 +145,13 @@ while amount_of_questions_answered < amount_of_questions:
     # Generates two random numbers using min_num and max_num for operations.
     first_number, second_number = random.randint(min_num, max_num), random.randint(min_num, max_num)
 
-    # Gets the answer depending on the operation, uses eval to evaluate the answer.
-    if operation == "*":
+    # Gets the answer depending on the operation, uses eval to obtain the answer.
+    if operation == "x":
         answer = eval("first_number * second_number")
-    elif operation == "/":
+
+    elif operation == "÷":
+        # uses multiplication to get division questions upto 13, question will be result divided by second number
+        # which also means the first number will be the answer
         result = first_number * second_number
         answer = first_number
         first_number = result
