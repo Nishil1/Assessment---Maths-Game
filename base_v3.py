@@ -28,7 +28,7 @@ def number_checker(question, valid_xxx_usage, error, minimum_number=None):
         try:
             response = int(response)
 
-            # required_numbers will be none for user guesses and user can guess -tive number so there isn't an
+            # required_numbers will be none for user guesses and user can guess -tive number so there isn't a
             # restrictions. However, amount of questions has to be > than 0.
             if minimum_number is not None:
                 if response >= minimum_number:
