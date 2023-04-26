@@ -1,7 +1,7 @@
 import random
 
 
-# This function is used for yes/no responses and choice of level responses
+# This function is used for yes/no responses and responses for which level is played
 def choice_checker(question, var_list, error):
     while True:
         # asks question
