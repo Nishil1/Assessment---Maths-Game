@@ -41,7 +41,7 @@ def number_checker(question, valid_xxx_usage, error, minimum_number=None):
             return response
         # if entered value is a float or string/ not an integer, gives an error message
         except ValueError:
-            print()
+            print(error)
 
 
 # Meant for aesthetics, this function takes in 4 parameters which I can control what decoration and how much for
