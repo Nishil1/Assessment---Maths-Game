@@ -6,8 +6,9 @@ def choice_checker(question, var_list, error):
         # checks for 2 possible answers
         for items in var_list:
             if var_question == items or var_question == items[0]:
-                print("Pass")
-                continue
+                print(f"you chose {items} mode")
+                return
+
 
         # if input is invalid
         print(error)
