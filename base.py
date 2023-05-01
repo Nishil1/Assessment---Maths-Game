@@ -45,7 +45,7 @@ amount_of_questions = num_check("Number of questions: ", "Please enter an intege
 
 amount_of_questions_answered = 0
 
-min_guess = 0
+min_guess = 1
 max_guess = 13
 
 level_2_valid_operations = ["+", "-"]
@@ -82,6 +82,9 @@ while amount_of_questions_answered < amount_of_questions:
 
         elif operation == "*":
             answer = first_number * second_number
+
+        else:
+            continue
     # Gets user guess
     user_guess = num_check(f"What is {first_number} {operation} {second_number}? ",
                                   "Please enter a whole integer(Can be negative)")
