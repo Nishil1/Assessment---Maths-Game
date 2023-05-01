@@ -53,7 +53,7 @@ def statement_generator(statement, decoration, num_sides, num_tb):
     if num_tb is True:
         num_tb = len(statement) * len(decoration)
     else:
-        num_tb = 0;
+        num_tb = 0
 
     sides = decoration * num_sides
     statement = f"{sides} {statement} {sides}"
@@ -98,6 +98,7 @@ if show_instructions == "no":
     print("Medium: Addition and subtraction up to 150(can include negative answers)")
     print("Hard: Multiplication and division up to 13 times table")
     print()
+    statement_generator("Instructions End", "-", 5, False)
 
 # List for valid levels that can be chosen by the user
 valid_level_list = ["easy", "medium", "hard"]
@@ -125,29 +126,27 @@ amount_of_questions_answered = 0
 # The minimum number used for all operations
 min_num = 1
 
-
 # Counter for the number of questions right
 questions_right = 0
 
-# Checks what level the user wants to play, sets the max number and decides the operation
+# Checks if mode is easy and sets max number and operation, doesn't need to be inside of while loop as only 1 operation
+# so no point regenerating it.
 if which_mode == "easy":
     max_num = 20
     operation = "+"
 
-elif which_mode == "medium":
-    max_num = 150
-    operation = random.choice(level_2_valid_operations)
-
-elif which_mode == "hard":
-    max_num = 13
-    operation = random.choice(level_3_valid_operations)
-    # used to fix warning that max_num could be undefined
-else:
-    max_num = ""
-    operation = ""
-
 # Game loop
 while amount_of_questions_answered < number_of_questions:
+
+    # Checks mode, sets max number and operation. Included in loop as operations can be different and are regenerated
+    # every time
+    if which_mode == "medium":
+        max_num = 150
+        operation = random.choice(level_2_valid_operations)
+
+    elif which_mode == "hard":
+        max_num = 13
+        operation = random.choice(level_3_valid_operations)
 
     # Generates two random numbers using min_num and max_num for operations.
     first_number, second_number = random.randint(min_num, max_num), random.randint(min_num, max_num)
@@ -157,7 +156,7 @@ while amount_of_questions_answered < number_of_questions:
         answer = first_number * second_number
 
     elif operation == "÷":
-        # uses multiplication to get division questions up to 13, question will be result divided by second number
+        # uses multiplication to get division questions up to 13, the question will be result divided by second number
         # which also means the first number will be the answer
         result = first_number * second_number
         answer = first_number
@@ -204,7 +203,6 @@ while amount_of_questions_answered < number_of_questions:
 
     # Increases the amount of questions answered by 1
     amount_of_questions_answered += 1
-
 
 # Makes sure user has answered at least 1 question
 if amount_of_questions_answered > 0:
