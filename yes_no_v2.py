@@ -4,7 +4,7 @@ def choice_checker(question, list, error):
         if response not in list:
             print(error)
         else:
-            return response
+            print("Program Continues")
 
 yes_no_list = ["yes", "y", "no", "n"]
 show_instructions = choice_checker("Have you played the game before? ", yes_no_list, "Please enter yes/no")
