@@ -49,15 +49,15 @@ def number_checker(question, can_exit, error, minimum_number=None):
 
 # Meant for aesthetics, this function takes in 4 parameters which I can control what decoration and how much for
 # messages I need. Makes things look better.
-def statement_generator(statement, decoration, num_sides, num_tb):
-    if num_tb is True:
-        num_tb = len(statement) * len(decoration)
+def statement_generator(statement, decoration, num_sides, top_bottom_decoration):
+    if top_bottom_decoration is True:
+        top_bottom_decoration = len(statement) * len(decoration)
     else:
-        num_tb = 0
+        top_bottom_decoration = 0
 
     sides = decoration * num_sides
     statement = f"{sides} {statement} {sides}"
-    top_bottom = decoration * num_tb
+    top_bottom = decoration * top_bottom_decoration
 
     print(top_bottom)
     print(statement)
